@@ -222,6 +222,9 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
+            <a href="#api-endpoint-format-and-versioning" class="toc-h1 toc-link" data-title="API endpoint format and versioning">API endpoint format and versioning</a>
+          </li>
+          <li>
             <a href="#setup" class="toc-h1 toc-link" data-title="Setup">Setup</a>
           </li>
           <li>
@@ -262,6 +265,14 @@
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
 <p>In order for WeKeep to record your sales, you must expose an API which WeKeep will poll at regular intervals (typically once a day). The format of the request and response for each type of data is specified in this documentation.</p>
+<h1 id='api-endpoint-format-and-versioning'>API endpoint format and versioning</h1>
+<p>Your endpoints base url must be in the following format:<br>
+<code>&lt;base_domain&gt;/wekeep-api/&lt;wekeep_version_number&gt;</code>  </p>
+
+<p>The current <code>wekeep_version_number</code> is <code>v1</code>.  </p>
+
+<p>Example of a base url with <code>v1</code>:<br>
+<code>https://www.yourcompany.com/wekeep-api/v1</code></p>
 <h1 id='setup'>Setup</h1>
 <p>You must enter your endpoint urls in your <a href="https://www.wekeep.co/c/account/">WeKeep account settings</a>. You must also enter the authentication key as explained in <a href="#authentication">Authentication</a>.</p>
 <h1 id='authentication'>Authentication</h1>
@@ -285,7 +296,7 @@ curl <span class="s2">"api_endpoint_here"</span>
 <aside class="notice">
 You must replace <code>PRIVATE_KEY</code> with your personal API key.
 </aside>
-<h1 id='sales'>Sales</h1><h2 id='get-all-sales'>Get All Sales</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://yourcompany.com/wekeep-api/sales?from_date=2019-01-01&amp;to_date=2019-01-31"</span>
+<h1 id='sales'>Sales</h1><h2 id='get-all-sales'>Get All Sales</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.yourcompany.com/wekeep-api/v1/sales?from_date=2019-01-01&amp;to_date=2019-01-31"</span>
   -H <span class="s2">"Authorization: PRIVATE_KEY"</span>
 </code></pre>
 <blockquote>
@@ -295,30 +306,32 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
   </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="s2">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alpha &amp; Co"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"place_of_supply"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DUBAI"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-23"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"invoice_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AE00123"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AED"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"amount_total"</span><span class="p">:</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w">
     </span><span class="s2">"tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
     </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PAID"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
     </span><span class="s2">"line_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some description"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
         </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
         </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"tax_group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SR_DUBAI"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
       </span><span class="p">},</span><span class="w">
     </span><span class="p">],</span><span class="w">
     </span><span class="s2">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABCD1234"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"reference1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABCD1234"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"reference2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xyz123"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-01-01"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AED"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w">
         </span><span class="s2">"currency_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"paid_through_account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xyz123"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"paid_from_account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xyz123"</span><span class="p">,</span><span class="w">
 
       </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
@@ -328,7 +341,7 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 </span></code></pre>
 <p>This endpoint must return all sales transactions.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://yourcompany.com/wekeep-api/sales</code></p>
+<p><code>GET /sales?from_date=2019-01-01&amp;to_date=2019-01-31</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -361,10 +374,6 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 <td><code>string</code> Name of the customer.</td>
 </tr>
 <tr>
-<td>place_of_supply</td>
-<td><code>string</code> Place of supply. Can be any of <code>DUBAI</code>, <code>ABU_DHABI</code>, <code>FUJAIRAH</code>, <code>SHARJAH</code>, <code>UMM_AL_QUWAIN</code>, <code>RAS_AL_KHAIMAH</code>, <code>AJMAN</code>, <code>NON_UAE</code></td>
-</tr>
-<tr>
 <td>date</td>
 <td><code>string</code> Date of the sale, in format <code>YYYY-MM-DD</code></td>
 </tr>
@@ -377,7 +386,11 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 <td><code>string</code> Currency code as per <a href="https://www.iban.com/currency-codes">ISO 4217</a>.</td>
 </tr>
 <tr>
-<td>amount_total</td>
+<td>currency_rate</td>
+<td><code>float</code> Exchange rate if invoice is in a non-base currency. E.g., if your base currency is <code>USD</code> and the invoice is in <code>AED</code>, the <code>currency_rate</code> would be <code>3.6725</code>.</td>
+</tr>
+<tr>
+<td>total_amount</td>
 <td><code>float</code> Total invoice amount including taxes.</td>
 </tr>
 <tr>
@@ -386,7 +399,7 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 </tr>
 <tr>
 <td>status</td>
-<td><code>string</code> Invoice status. Must be either of <code>PAID</code>, <code>UNPAID</code>, <code>DELETED</code>, <code>TEST</code></td>
+<td><code>string</code> Invoice status. Must be one of <code>PAID</code>, <code>UNPAID</code>, <code>DELETED</code>, <code>TEST</code></td>
 </tr>
 <tr>
 <td>line_items</td>
@@ -395,10 +408,6 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 <tr>
 <td>payments</td>
 <td><code>JSON array</code> Array of <code>Payments</code> objects.</td>
-</tr>
-<tr>
-<td>description</td>
-<td><code>(optional) string</code> Description of the sale.</td>
 </tr>
 </tbody></table>
 <h1 id='line-items'>Line Items</h1>
@@ -411,12 +420,28 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 </tr>
 </thead><tbody>
 <tr>
-<td>id</td>
-<td><code>string</code> Unique id internal to your systems.</td>
+<td>description</td>
+<td>(optional) <code>string</code> Description of the line item.</td>
 </tr>
 <tr>
-<td>customer_name</td>
-<td><code>string</code> Name of the customer.</td>
+<td>quantity</td>
+<td><code>float</code> Quantity.</td>
+</tr>
+<tr>
+<td>price</td>
+<td><code>float</code> Unit price.</td>
+</tr>
+<tr>
+<td>tax_rate</td>
+<td><code>float</code> The tax rate (<code>0.05</code> is 5%).</td>
+</tr>
+<tr>
+<td>tax_amount</td>
+<td><code>float</code> The tax amount.</td>
+</tr>
+<tr>
+<td>tax_group</td>
+<td><code>string</code> UAE-only. Must be one of <code>SR_DUBAI</code>, <code>SR_ABU_DHABI</code>, <code>SR_FUJAIRAH</code>, <code>SR_SHARJAH</code>, <code>SR_UMM_AL_QUWAIN</code>, <code>SR_RAS_AL_KHAIMAH</code>, <code>SR_AJMAN</code>, <code>ZERO_RATED</code>, <code>EXEMPT</code></td>
 </tr>
 </tbody></table>
 
@@ -440,12 +465,32 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 </tr>
 </thead><tbody>
 <tr>
-<td>id</td>
-<td><code>string</code> Unique id internal to your systems.</td>
+<td>reference1</td>
+<td><code>string</code> Reference of the payment.</td>
+</tr>
+<tr>
+<td>reference2</td>
+<td><code>string</code> Additional reference of the payment.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td><code>float</code> Amount paid.</td>
+</tr>
+<tr>
+<td>currency_code</td>
+<td><code>string</code> Currency code as per <a href="https://www.iban.com/currency-codes">ISO 4217</a>.</td>
+</tr>
+<tr>
+<td>currency_rate</td>
+<td><code>float</code> Exchange rate when payment is received if the payment was made in the non-base currency. E.g., if your base currency is <code>USD</code> and the payment was made in <code>AED</code>, the <code>currency_rate</code> would be <code>3.6725</code>.</td>
 </tr>
 <tr>
 <td>customer_name</td>
 <td><code>string</code> Name of the customer.</td>
+</tr>
+<tr>
+<td>paid_from_account_id</td>
+<td><code>string</code> The id of the account where the payment was received. Contact your account manager to obtain the value.</td>
 </tr>
 </tbody></table>
 
@@ -453,11 +498,12 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 <p>Line item object:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some description"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some description"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AED"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"currency_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-01"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"paid_from_account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a12098x098vkmhas0980123098"</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
       </div>
