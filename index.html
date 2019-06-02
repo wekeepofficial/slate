@@ -222,7 +222,7 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
-            <a href="#api-endpoint-format-and-versioning" class="toc-h1 toc-link" data-title="API endpoint format and versioning">API endpoint format and versioning</a>
+            <a href="#api-base-url-and-versioning" class="toc-h1 toc-link" data-title="API base url and versioning">API base url and versioning</a>
           </li>
           <li>
             <a href="#setup" class="toc-h1 toc-link" data-title="Setup">Setup</a>
@@ -265,7 +265,7 @@
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
 <p>In order for WeKeep to record your sales, you must expose an API which WeKeep will poll at regular intervals (typically once a day). The format of the request and response for each type of data is specified in this documentation.</p>
-<h1 id='api-endpoint-format-and-versioning'>API endpoint format and versioning</h1>
+<h1 id='api-base-url-and-versioning'>API base url and versioning</h1>
 <p>Your endpoints base url must be in the following format:<br>
 <code>&lt;base_domain&gt;/wekeep-api/&lt;wekeep_version_number&gt;</code>  </p>
 
@@ -300,46 +300,52 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
   -H <span class="s2">"Authorization: PRIVATE_KEY"</span>
 </code></pre>
 <blockquote>
-<p>Returns an array of Sales objects:</p>
+<p>Response:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alpha &amp; Co"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-23"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"invoice_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AE00123"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AED"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"currency_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"total_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PAID"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"line_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some description"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"tax_group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SR_DUBAI"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"reference1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABCD1234"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"reference2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xyz123"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-01-01"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AED"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"currency_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"paid_from_account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xyz123"</span><span class="p">,</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1023</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yourcompany.com/wekeep-api/v1/?from_date=2019-01-01&amp;to_date=2019-01-31&amp;page=2"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"previous"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yourcompany.com/wekeep-api/v1/?from_date=2019-01-01&amp;to_date=2019-01-31&amp;page=1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alpha &amp; Co"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-23"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"invoice_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AE00123"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AED"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"currency_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"total_amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">94.5</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">4.5</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PAID"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"line_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some description"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"discount_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"tax_group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SR_DUBAI"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">4.5</span><span class="p">,</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"reference1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABCD1234"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"reference2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xyz123"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-01-01"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AED"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">94.5</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"currency_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"paid_from_account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xyz123"</span><span class="p">,</span><span class="w">
 
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="err">...</span><span class="w">
-</span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint must return all sales transactions.</p>
+<p>This endpoint must return all sales transactions witin the specified dates.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET /sales?from_date=2019-01-01&amp;to_date=2019-01-31</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
@@ -358,7 +364,7 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 <td>Sales transactions up to and including date. In the format <code>YYYY-MM-DD</code>.</td>
 </tr>
 </tbody></table>
-<h3 id='response'>Response</h3>
+<h3 id='response-format'>Response format</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -366,9 +372,29 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 </tr>
 </thead><tbody>
 <tr>
-<td>id</td>
-<td><code>string</code> Unique id internal to your systems.</td>
+<td>count</td>
+<td><code>integer</code> Total number of results.</td>
 </tr>
+<tr>
+<td>next</td>
+<td><code>string</code> Url to call to get the next page of results.</td>
+</tr>
+<tr>
+<td>previous</td>
+<td><code>string</code> Url to call to get the previous page of results.</td>
+</tr>
+<tr>
+<td>results</td>
+<td><code>JSON array</code> Array of <code>Sales</code> objects.</td>
+</tr>
+</tbody></table>
+<h3 id='sales-object'>Sales object</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
 <tr>
 <td>customer_name</td>
 <td><code>string</code> Name of the customer.</td>
@@ -407,10 +433,22 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 </tr>
 <tr>
 <td>payments</td>
-<td><code>JSON array</code> Array of <code>Payments</code> objects.</td>
+<td><code>JSON array</code> Array of <a href="#payment"><code>Payment</code></a> objects.</td>
 </tr>
 </tbody></table>
 <h1 id='line-items'>Line Items</h1>
+<blockquote>
+<p>Line item object:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some description"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"discount_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">4.5</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <p>Line items of a Sales object.</p>
 <h3 id='fields'>Fields</h3>
 <table><thead>
@@ -432,6 +470,10 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 <td><code>float</code> Unit price.</td>
 </tr>
 <tr>
+<td>discount_rate</td>
+<td><code>float</code> Discount rate applied to this line item pre-tax. E.g., <code>0.1</code> applies a 10% discount.</td>
+</tr>
+<tr>
 <td>tax_rate</td>
 <td><code>float</code> The tax rate (<code>0.05</code> is 5%).</td>
 </tr>
@@ -444,18 +486,19 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 <td><code>string</code> UAE-only. Must be one of <code>SR_DUBAI</code>, <code>SR_ABU_DHABI</code>, <code>SR_FUJAIRAH</code>, <code>SR_SHARJAH</code>, <code>SR_UMM_AL_QUWAIN</code>, <code>SR_RAS_AL_KHAIMAH</code>, <code>SR_AJMAN</code>, <code>ZERO_RATED</code>, <code>EXEMPT</code></td>
 </tr>
 </tbody></table>
-
+<h1 id='payment'>Payment</h1>
 <blockquote>
-<p>Line item object:</p>
+<p>Payment object:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some description"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"tax_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some description"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AED"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"currency_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-01"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"paid_from_account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a12098x098vkmhas0980123098"</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h1 id='payment'>Payment</h1>
+</span></code></pre>
 <p>Payments are applied to Sales objects.</p>
 <h3 id='fields-2'>Fields</h3>
 <table><thead>
@@ -494,18 +537,6 @@ You must replace <code>PRIVATE_KEY</code> with your personal API key.
 </tr>
 </tbody></table>
 
-<blockquote>
-<p>Line item object:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some description"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AED"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"currency_rate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-01"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"paid_from_account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a12098x098vkmhas0980123098"</span><span class="p">,</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
